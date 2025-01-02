@@ -9,7 +9,7 @@ from phi.document.chunking.document import DocumentChunking
 # path to the directory containing your PDF files
 pdf_directory_path = "health_assistant\pdf_data"
 
-db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"
+db_url = st.secrets["DATABASE_URL"]
 
 # Initialize the PDFKnowledgeBase with the directory path
 knowledge_base = PDFKnowledgeBase(
