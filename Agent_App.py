@@ -4,27 +4,6 @@ from Agentic_manager import healthcare_agent
 load_dotenv()
 
 
-# def main():
-#     st.title("")
-#     question = st.text_area("Please enter your query related to healtcare and insurace")
-
-#     if st.button("Go"):
-#         if not question.strip():
-#             st.error("Please enter a valid question.")
-#             return
-
-#         try:
-#             with st.spinner("Processing your question"):
-#                 response = healthcare_agent.run(question)
-#                 st.markdown(response.content)
-        
-#         except Exception as e:
-#             st.error(f"An error occured: {str(e)}")
-
-
-# if __name__ == "__main__":
-#     main()
-
 
 import streamlit as st
 from streamlit_chat import message  # Streamlit-Chat for a chatbot UI

@@ -2,7 +2,7 @@ from phi.agent import Agent
 from phi.model.groq import Groq
 from load_knowledge_base import knowledge_base
 from phi.tools.duckduckgo import DuckDuckGo
-from phi.playground import Playground, serve_playground_app
+# from phi.playground import Playground, serve_playground_app
 from dotenv import load_dotenv 
 from phi.model.vertexai import Gemini
 from phi.tools.googlesearch import GoogleSearch
@@ -28,9 +28,3 @@ healthcare_agent = Agent(
 )
 
 # healthcare_agent.knowledge.load(recreate=False)
-
-
-# app=Playground(agents=[healthcare_agent]).get_app()
-
-# if __name__=="__main__":
-#     serve_playground_app("Agentic_manager:app", reload=True)
