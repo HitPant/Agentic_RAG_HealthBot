@@ -8,7 +8,7 @@ import streamlit as st
 # embeddings = OpenAIEmbedder().get_embedding("Embed me")
 
 # path to the directory containing your PDF files
-pdf_directory_path = "health_assistant\pdf_data"
+pdf_directory_path = "pdf_data"
 
 db_url = st.secrets["DATABASE_URL"]
 
