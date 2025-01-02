@@ -2,6 +2,7 @@ from phi.knowledge.pdf import PDFKnowledgeBase, PDFReader
 from phi.vectordb.pgvector import PgVector, SearchType
 from phi.embedder.mistral import MistralEmbedder
 from phi.document.chunking.document import DocumentChunking
+import streamlit as st
 
 
 # embeddings = OpenAIEmbedder().get_embedding("Embed me")
