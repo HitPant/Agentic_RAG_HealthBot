@@ -10,9 +10,18 @@ if 'messages' not in st.session_state:
 
 # Function to display chat messages
 def display_messages():
-    for message in st.session_state['messages']:
+    # Display all messages except the initial one
+    for idx, message in enumerate(st.session_state['messages']):
+        if idx == 0:  # Skip the initial static message
+            continue
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
+
+# Function to display the initial message
+def display_initial_message():
+    if st.session_state['messages'] and st.session_state['messages'][0]["role"] == "assistant":
+        with st.chat_message("assistant"):
+            st.markdown(st.session_state['messages'][0]["content"])
 
 # Function to process user input
 def process_input():
@@ -48,10 +57,14 @@ def process_input():
 # Main function to run the app
 def main():
     st.title("Healthcare and Insurance Chatbot")
+
+    # Display the initial message once
+    display_initial_message()
+
+    # Display the rest of the chat history
     display_messages()
 
     # Input box for user queries
-    # Use chat_input widget for user input handling
     user_input = st.chat_input("Type your query here...")
     if user_input:
         # Process input if user submits it via the chat input
