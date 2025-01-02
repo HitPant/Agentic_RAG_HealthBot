@@ -14,14 +14,6 @@ def display_messages():
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-# Function to simulate typing effect
-def simulate_typing(placeholder, response_text, typing_speed=0.05):
-    simulated_text = ""
-    for char in response_text:
-        simulated_text += char
-        placeholder.markdown(simulated_text)
-        sleep(typing_speed)  # Adjust the typing speed
-
 # Function to process user input
 def process_input():
     # Get the user input from session state
@@ -40,18 +32,11 @@ def process_input():
     # Generate and display assistant's response
     with st.chat_message("assistant"):
         placeholder = st.empty()  # Placeholder for typing animation
-        with st.spinner("Assistant is thinking..."):
+        with st.spinner(""):
             try:
-                # Simulate a typing indicator before fetching the response
-                placeholder.markdown("Typing...")
-                sleep(1.5)  # Simulated delay for typing indicator
-                
                 response = healthcare_agent.run(user_input)  # Adjust this line to match your agent's method
                 response_content = response.content if hasattr(response, "content") else str(response)
-                
-                # Simulate typing effect for the response
-                simulate_typing(placeholder, response_content, typing_speed=0.03)
-                
+                placeholder.markdown(response_content)
                 # Add assistant's response to chat history
                 st.session_state['messages'].append({"role": "assistant", "content": response_content})
             except Exception as e:
