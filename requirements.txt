@@ -1,15 +1,11 @@
 phidata
 python-dotenv
-yfinance
 packaging
 duckduckgo-search
-fastapi
 uvicorn
 groq
 openai
 streamlit
-pytesseract
-pdf2img
 sqlalchemy
 pgvector
 psycopg
@@ -17,3 +13,4 @@ mistralai
 google-cloud-aiplatform
 googlesearch-python
 pycountry
+psycopg[binary]
