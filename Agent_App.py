@@ -1,4 +1,5 @@
 import streamlit as st
+from time import sleep
 from Agentic_manager import healthcare_agent  # Ensure this imports your agent correctly
 
 # Initialize session state for storing chat history
@@ -12,6 +13,14 @@ def display_messages():
     for message in st.session_state['messages']:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
+
+# Function to simulate typing effect
+def simulate_typing(placeholder, response_text, typing_speed=0.05):
+    simulated_text = ""
+    for char in response_text:
+        simulated_text += char
+        placeholder.markdown(simulated_text)
+        sleep(typing_speed)  # Adjust the typing speed
 
 # Function to process user input
 def process_input():
@@ -30,11 +39,19 @@ def process_input():
 
     # Generate and display assistant's response
     with st.chat_message("assistant"):
-        with st.spinner("Processing..."):
+        placeholder = st.empty()  # Placeholder for typing animation
+        with st.spinner("Assistant is thinking..."):
             try:
+                # Simulate a typing indicator before fetching the response
+                placeholder.markdown("Typing...")
+                sleep(1.5)  # Simulated delay for typing indicator
+                
                 response = healthcare_agent.run(user_input)  # Adjust this line to match your agent's method
                 response_content = response.content if hasattr(response, "content") else str(response)
-                st.markdown(response_content)
+                
+                # Simulate typing effect for the response
+                simulate_typing(placeholder, response_content, typing_speed=0.03)
+                
                 # Add assistant's response to chat history
                 st.session_state['messages'].append({"role": "assistant", "content": response_content})
             except Exception as e:
