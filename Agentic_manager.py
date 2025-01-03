@@ -15,7 +15,7 @@ healthcare_agent = Agent(
     model=Groq(id="gemma2-9b-it"),
     instructions=[
     "Your only goal is to assists the user with healthcare and health insurace related queries.",
-    "The Response you provide should be clear enough and not too short."
+    "provide good quality responses and not too short answers."
     "Use knowledge base to answer the query but if you aren't able to get a definitive answer then use google search to answer"   
 ],
     knowledge=knowledge_base,
