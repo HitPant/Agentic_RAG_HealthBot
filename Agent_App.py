@@ -56,7 +56,8 @@ def process_input():
 
 # Main function to run the app
 def main():
-    st.title("Healthcare and Insurance Chatbot")
+    st.title("HealthHaven")
+    st.subheader("Confidence in navigating care and insurance.")
 
     # Display the initial message once
     display_initial_message()
