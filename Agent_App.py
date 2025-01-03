@@ -10,8 +10,10 @@ if 'messages' not in st.session_state:
 
 
 def clean_response(response_text):
-    # Ensure proper spacing and punctuation
-    return " ".join(response_text.split())
+    # Clean up the model's response text
+    cleaned_text = " ".join(response_text.split())  # Fixes spacing issues
+    return cleaned_text
+
 
 
 # Function to display chat messages
@@ -31,34 +33,34 @@ def display_initial_message():
 
 # Function to process user input
 def process_input():
-    # Get the user input from session state
     user_input = st.session_state.get("user_input", "").strip()
     if not user_input:
-        return  # Ignore empty inputs
+        return
 
     # Add user message to chat history
     st.session_state['messages'].append({"role": "user", "content": user_input})
-    # Display the updated chat messages immediately
     display_messages()
 
     # Clear the input box
-    st.session_state["user_input"] = ""  # This resets the input widget
+    st.session_state["user_input"] = ""
 
     # Generate and display assistant's response
     with st.chat_message("assistant"):
         placeholder = st.empty()  # Placeholder for typing animation
         with st.spinner(""):
             try:
-                response = healthcare_agent.run(user_input)  # Adjust this line to match your agent's method
-                # response_content = response.content if hasattr(response, "content") else str(response)
-                response_content = clean_response(response.content if hasattr(response, "content") else str(response))
+                # Generate the response
+                response = healthcare_agent.run(user_input)
+                # Clean and format the response
+                response_content = clean_response(response.content if hasattr(response, "content") else str(response)
+                )
+                # Display the cleaned response
                 placeholder.markdown(response_content)
-                # Add assistant's response to chat history
+                # Add cleaned response to chat history
                 st.session_state['messages'].append({"role": "assistant", "content": response_content})
             except Exception as e:
                 error_message = f"An error occurred: {e}"
                 st.error(error_message)
-                # Add error message to chat history
                 st.session_state['messages'].append({"role": "assistant", "content": error_message})
 
 # Main function to run the app
