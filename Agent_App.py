@@ -8,12 +8,6 @@ if 'messages' not in st.session_state:
         {"role": "assistant", "content": "Hello! How can I assist you with healthcare and insurance today?"}
     ]
 
-
-def clean_response(response_text):
-    # Ensure proper spacing and punctuation
-    return " ".join(response_text.split())
-
-
 # Function to display chat messages
 def display_messages():
     # Display all messages except the initial one
@@ -50,8 +44,7 @@ def process_input():
         with st.spinner(""):
             try:
                 response = healthcare_agent.run(user_input)  # Adjust this line to match your agent's method
-                # response_content = response.content if hasattr(response, "content") else str(response)
-                response_content = clean_response(response.content if hasattr(response, "content") else str(response))
+                response_content = response.content if hasattr(response, "content") else str(response)
                 placeholder.markdown(response_content)
                 # Add assistant's response to chat history
                 st.session_state['messages'].append({"role": "assistant", "content": response_content})
