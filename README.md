@@ -1,10 +1,4 @@
-# Agentic_RAG_HealthBot
-
-
-
 # Health_Insurance-AgenticRAG
-
-![agentic_rag](https://github.com/HitPant/Health_Insurance-ChatBot/assets/30971790/agentic_rag_image_placeholder)
 
 ## Introduction
 This project presents the second version of the Health Insurance ChatBot, redesigned as an **Agentic RAG system** to deliver advanced, context-aware, and tool-empowered healthcare and insurance insights.
