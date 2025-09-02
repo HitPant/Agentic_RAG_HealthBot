@@ -3,7 +3,6 @@
 ## Introduction
 Navigate care & insurance with confidence. This project is a Streamlit chat application powered by an agentic Retrieval‑Augmented Generation (RAG) workflow. The agent first searches a vectorized PDF knowledge base (your documents), and when needed falls back to web search, then composes clear, contextual answers.
 
----
 
 ## What this project does:
 Provides a chat UI where users ask U.S. healthcare & health‑insurance questions.
