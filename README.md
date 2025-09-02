@@ -1,23 +1,23 @@
 # Health_Insurance-AgenticRAG
 
 ## Introduction
-This project presents the second version of the Health Insurance ChatBot, redesigned as an **Agentic RAG system** to deliver advanced, context-aware, and tool-empowered healthcare and insurance insights.
-
-Unlike traditional chatbots limited by static workflows, this AI agent dynamically reasons, interacts, and invokes external tools or APIs on demand to generate precise and actionable responses for complex healthcare-related queries.
+Navigate care & insurance with confidence. This project is a Streamlit chat application powered by an agentic Retrieval‑Augmented Generation (RAG) workflow. The agent first searches a vectorized PDF knowledge base (your documents), and when needed falls back to web search, then composes clear, contextual answers.
 
 ---
 
-## Objective
-Build an agentic Retrieval-Augmented Generation (RAG) system capable of:
-- Handling complex, multi-step healthcare and insurance queries.
-- Dynamically integrating external tools and APIs to enrich responses.
-- Providing an enhanced, interactive user experience for residents and international students navigating the U.S. healthcare system.
+## What this project does:
+Provides a chat UI where users ask U.S. healthcare & health‑insurance questions.
+Uses an Agent (from the phi/Agno toolkit) that:
+  - Searches a PDF knowledge base backed by Postgres + pgvector with Mistral embeddings and hybrid search (semantic + keyword).
+  - Falls back to Google Search when the internal knowledge base doesn’t provide a decisive answer.
+  - Maintains chat history for context and is time‑aware in its reasoning.
+  - Responds in Markdown with concise, high‑quality explanations.
 
 ---
 
-## Key Features
-✅ **Agentic RAG Architecture**  
-Moves beyond simple retrieval setups by using agent-based planning and decision-making.
+## Architecture
+✅ **Knowledge Base**  
+PDF documents under pdf_data/ are chunked (size=1024, overlap=20) and embedded using Mistral, then stored in a Postgres table (e.g., v2_health_insurace_data) with pgvector. The agent queries this KB first (hybrid search). If confidence is low or info is missing, it queries the web.
 
 ✅ **Tool & API Integration**  
 Dynamically calls external services and tools to fetch real-time or enriched information.
@@ -40,27 +40,22 @@ Allows future integration of specialized agents and expanded functionality.
 
 ---
 
-## How It Works
-
-1️⃣ **Query Input**  
-User submits a healthcare or insurance-related question.
-
-2️⃣ **Agent Reasoning**  
-Agent plans steps: decides whether to retrieve, reason, or call tools/APIs.
-
-3️⃣ **Action Execution**  
-Agent uses Groq LLM for reasoning and Agno-integrated tools or APIs for enriched answers.
-
-4️⃣ **Response Delivery**  
-Final, contextually relevant answer is displayed on the Streamlit frontend.
+## Configuration knobs (code‑level)
+  - Model: Groq gemma2-9b-it (swap to another via phi.model.* if desired).
+  - Knowledge search: enabled by default; agent queries the KB first.
+  - Vector DB table: v2_health_insurace_data (change the name if you want separate indices).
+  - Chunking: chunk_size=1024, overlap=20 for PDFs.
+  - Search type: hybrid (semantic + keyword).
+  - Tools: GoogleSearch() is enabled; you can add others (e.g., DuckDuckGo) using the phi.tools suite.
+  - Chat memory: enabled; the agent can read prior chat messages for context.
 
 ---
 
 ## Future Roadmap
-- Add specialized agents (e.g., claims assistant, provider lookup).
-- Integrate more real-time healthcare data sources.
-- Expand to handle multi-modal inputs (e.g., forms, documents).
-- Improve memory handling for longer conversations.
+- **More tools**: Add claims calculators, provider directory lookups, benefits comparisons.
+- **Alternate embeddings**: Swap to another embedder (e.g., OpenAI, Cohere) if preferred.
+- **Alternate LLMs**: Use Gemini, OpenAI, or local models via `phi.model.*` providers.
+- **Multi‑tenant KBs**: Change table names or schemas to isolate per‑tenant data.
 
 ---
 
